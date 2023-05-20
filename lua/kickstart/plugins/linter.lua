@@ -1,6 +1,5 @@
 local M = {
   'jose-elias-alvarez/null-ls.nvim',
-  event = 'BufReadPre',
   dependencies = {
     {
       'nvim-lua/plenary.nvim',
@@ -29,7 +28,7 @@ function M.config()
       formatting.google_java_format,
       diagnostics.flake8,
       formatting.isort,
-      diagnostics.pylint,
+      --diagnostics.pylint,
       diagnostics.ruff,
       formatting.rustfmt,
     },
