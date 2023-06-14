@@ -1,42 +1,48 @@
-local M = {
-  'goolord/alpha-nvim',
-  event = 'VimEnter',
-  commit = 'dafa11a6218c2296df044e00f88d9187222ba6b0',
+return {
+  'echasnovski/mini.starter',
+  version = false,
+  config = function()
+    require('mini.starter')
+        .setup
+    -- No need to copy this inside `setup()`. Will be used automatically.
+        {
+          -- Whether to open starter buffer on VimEnter. Not opened if Neovim was
+          -- started with intent to show something else.
+          autoopen = true,
+
+          -- Whether to evaluate action of single active item
+          evaluate_single = false,
+
+          -- Items to be displayed. Should be an array with the following elements:
+          -- - Item: table with <action>, <name>, and <section> keys.
+          -- - Function: should return one of these three categories.
+          -- - Array: elements of these three types (i.e. item, array, function).
+          -- If `nil` (default), default items will be used (see |mini.starter|).
+          items = nil,
+
+          -- Header to be displayed before items. Converted to single string via
+          -- `tostring` (use `\n` to display several lines). If function, it is
+          -- evaluated first. If `nil` (default), polite greeting will be used.
+          header = nil,
+
+          -- Footer to be displayed after items. Converted to single string via
+          -- `tostring` (use `\n` to display several lines). If function, it is
+          -- evaluated first. If `nil` (default), default usage help will be shown.
+          footer = nil,
+
+          -- Array  of functions to be applied consecutively to initial content.
+          -- Each function should take and return content for 'Starter' buffer (see
+          -- |mini.starter| and |MiniStarter.content| for more details).
+          content_hooks = nil,
+
+          -- Characters to update query. Each character will have special buffer
+          -- mapping overriding your global ones. Be careful to not add `:` as it
+          -- allows you to go into command mode.
+          query_updaters = 'abcdefghijklmnopqrstuvwxyz0123456789_-.',
+
+          -- Whether to disable showing non-error feedback
+          silent = false,
+        }
+  end,
 }
 
-function M.config()
-  local alpha = require 'alpha'
-  local dashboard = require 'alpha.themes.dashboard'
-  dashboard.section.header.val = {
-    [[ ░█████╗░███████╗██╗░░██╗░█████╗░░██████╗░░█████╗░██████╗░██╗░██████╗░░░░░░███╗░░██╗██╗░░░██╗██╗███╗░░░███╗]],
-    [[ ██╔══██╗╚════██║██║░░██║██╔══██╗██╔════╝░██╔══██╗██╔══██╗╚█║██╔════╝░░░░░░████╗░██║██║░░░██║██║████╗░████║]],
-    [[ ███████║░░███╔═╝███████║███████║██║░░██╗░███████║██████╔╝░╚╝╚█████╗░█████╗██╔██╗██║╚██╗░██╔╝██║██╔████╔██║]],
-    [[ ██╔══██║██╔══╝░░██╔══██║██╔══██║██║░░╚██╗██╔══██║██╔══██╗░░░░╚═══██╗╚════╝██║╚████║░╚████╔╝░██║██║╚██╔╝██║]],
-    [[ ██║░░██║███████╗██║░░██║██║░░██║╚██████╔╝██║░░██║██║░░██║░░░██████╔╝░░░░░░██║░╚███║░░╚██╔╝░░██║██║░╚═╝░██║]],
-    [[ ╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═════╝░░░░░░░╚═╝░░╚══╝░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝]],
-  }
-  dashboard.section.buttons.val = {
-    dashboard.button('f', ' ' .. ' Find file', ':Telescope find_files <CR>'),
-    dashboard.button('c', '' .. '  Chad Manager', ':CHADopen <CR>'),
-    dashboard.button('e', ' ' .. ' New file', ':ene <BAR> startinsert <CR>'),
-    dashboard.button('p', ' ' .. ' Find project', ":lua require('telescope').extensions.projects.projects()<CR>"),
-    dashboard.button('r', ' ' .. ' Recent files', ':Telescope oldfiles <CR>'),
-    dashboard.button('t', ' ' .. ' Find text', ':Telescope live_grep <CR>'),
-    dashboard.button('c', ' ' .. ' Config', ':e $MYVIMRC <CR>'),
-    dashboard.button('q', ' ' .. ' Quit', ':qa<CR>'),
-  }
-  local function footer()
-    return 'alagar18@proton.me'
-  end
-
-  dashboard.section.footer.val = footer()
-
-  dashboard.section.footer.opts.hl = 'Type'
-  dashboard.section.header.opts.hl = 'Include'
-  dashboard.section.buttons.opts.hl = 'Keyword'
-
-  dashboard.opts.opts.noautocmd = true
-  alpha.setup(dashboard.opts)
-end
-
-return M
