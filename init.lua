@@ -84,10 +84,10 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       opts = {} },
+      -- { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
+      { 'folke/neodev.nvim' },
     },
   },
 
@@ -203,6 +203,7 @@ require('lazy').setup({
   require 'kickstart.plugins.dash',
   require 'kickstart.plugins.starrust',
   require 'kickstart.plugins.neorg',
+  require 'kickstart.plugins.hlchunk',
   -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
